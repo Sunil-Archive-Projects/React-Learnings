@@ -37,6 +37,14 @@ class App extends Component{
        })
     }
 
+    clickHandler = (personIndex) => {
+        let persona = this.state.persons.slice();
+        console.log(personIndex);
+        persona.splice(personIndex,1);
+        console.log(persona);
+        this.setState({persons: persona})
+    }
+
     render(){
         return(
             <div className="App">
@@ -46,13 +54,11 @@ class App extends Component{
                 { this.state.showPersons === true ? 
                 <div>
                     {/*filter only the alive characters and map them into the Person component*/}
-                    {this.state.persons.filter(person => person.alive).map(person => 
-                                                                                    <Person 
-                                                                                    key = {person.id} 
-                                                                                    name = {person.name} 
-                                                                                    age = {person.age} 
-                                                                                    changed = {this.nameChangeHandler}/>
-                                                                                )} 
+                    {this.state.persons.filter(person => person.alive).map((person,index) => 
+                                                                                    <Person key = {person.id} 
+                                                                                    name = {person.name} age = {person.age} changed = {this.nameChangeHandler}
+                                                                                    click = {() => this.clickHandler(index)}/>
+                                                                            )} 
                 </div> : null
                 } 
             </div>
